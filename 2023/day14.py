@@ -36,12 +36,9 @@ while count < iteration_count:
     count += 1
 
     for orientation in ["N", "W", "S", "E"]:
-        if orientation == "N":
+        if orientation in ["N", "S"]:
             grid = list(zip(*grid))
-        if orientation == "S":
-            grid = list(zip(*grid))
-            grid = [row[::-1] for row in grid]
-        if orientation == "E":
+        if orientation in ["S", "E"]:
             grid = [row[::-1] for row in grid]
 
         for j, row in enumerate(grid):
@@ -59,13 +56,10 @@ while count < iteration_count:
             grid[j] = new_row
 
         # Reverse the operation at the start of this iteration
-        if orientation == "N":
-            grid = list(zip(*grid))
-        if orientation == "S":
+        if orientation in ["S", "E"]:
             grid = [row[::-1] for row in grid]
+        if orientation in ["N", "S"]:
             grid = list(zip(*grid))
-        if orientation == "E":
-            grid = [row[::-1] for row in grid]
 
     if iteration_count == CYCLES and (g := grid_to_tuples(grid)) in visited:
         cycles_left = CYCLES - visited[g]
